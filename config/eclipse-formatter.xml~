@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<profiles version="13">
+    <profile kind="CodeFormatterProfile" name="CustomProfile" version="13">
+        <!-- Giới hạn độ dài dòng -->
+        <setting id="org.eclipse.jdt.core.formatter.lineSplit" value="100"/>
+        <!-- Yêu cầu sử dụng braces cho các khối điều khiển -->
+        <setting id="org.eclipse.jdt.core.formatter.brace_position_for_block" value="end_of_line"/>
+        <setting id="org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_block" value="insert"/>
+        <setting id="org.eclipse.jdt.core.formatter.control_statement_use_braces" value="always"/>
+    </profile>
+</profiles>
