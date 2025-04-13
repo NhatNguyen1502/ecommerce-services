@@ -1,0 +1,2 @@
+package rookies.ecommerce.dto.request.category;public class UpdateCategoryReq {
+}
