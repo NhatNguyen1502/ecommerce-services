@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UpdateCategoryReq {
+public class UpdateCategoryRequest {
   @Size(max = 25, message = "INVALID_CATEGORY_NAME")
   String name;
 }
