@@ -19,6 +19,8 @@ spring:
 
 server:
   port: 8080
+  servlet:
+    contextPath: /api
 
 fe-server:
   url: ${FE_URL:http://localhost:3000}

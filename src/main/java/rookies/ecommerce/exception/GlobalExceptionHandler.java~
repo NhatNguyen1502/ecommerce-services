@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
       AppApiResponse<Void> appApiResponse =
           AppApiResponse.<Void>builder()
               .code(500)
-              .message("Internal server error")
+              .message("Internal server error 2")
               .status(ApiStatus.FAIL)
               .build();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(appApiResponse);

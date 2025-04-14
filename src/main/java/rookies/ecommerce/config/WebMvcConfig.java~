@@ -1,0 +1,4 @@
+package rookies.ecommerce.config;
+
+public class WebMvcConfig {
+}

@@ -2,7 +2,6 @@ package rookies.ecommerce.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +29,6 @@ public abstract class BaseEntityAudit extends BaseEntity {
 
   UUID updatedBy;
 
-  @NotNull
   @Column(name = "is_deleted", columnDefinition = "boolean default false")
   Boolean isDeleted = false;
 
