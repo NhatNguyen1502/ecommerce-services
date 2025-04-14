@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateCategoryReq {
+public class CreateCategoryRequest {
   @Size(max = 25, message = "INVALID_CATEGORY_NAME")
   @NotNull(message = "CATEGORY_NAME_REQUIRED")
   String name;
