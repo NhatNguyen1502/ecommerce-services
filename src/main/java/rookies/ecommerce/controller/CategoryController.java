@@ -22,15 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rookies.ecommerce.dto.request.category.CreateCategoryReq;
-import rookies.ecommerce.dto.request.category.UpdateCategoryReq;
+import rookies.ecommerce.dto.request.category.CreateCategoryRequest;
+import rookies.ecommerce.dto.request.category.UpdateCategoryRequest;
 import rookies.ecommerce.dto.response.ApiStatus;
 import rookies.ecommerce.dto.response.AppApiResponse;
-import rookies.ecommerce.dto.response.category.CategorySummaryRes;
-import rookies.ecommerce.entity.Category;
+import rookies.ecommerce.dto.response.category.CategorySummaryResponse;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
-import rookies.ecommerce.service.impl.CategoryServiceImpl;
+import rookies.ecommerce.service.category.CategoryServiceImpl;
 import rookies.ecommerce.validation.ValidUUID;
 
 @RestController
@@ -82,7 +81,7 @@ public class CategoryController {
       })
   @PostMapping
   public ResponseEntity<AppApiResponse<Void>> createCategory(
-      @Valid @RequestBody CreateCategoryReq request) {
+      @Valid @RequestBody CreateCategoryRequest request) {
 
     categoryService.createCategory(request);
     return ResponseEntity.status(201)
@@ -136,21 +135,21 @@ public class CategoryController {
                     }))
       })
   @GetMapping("/{id}")
-  public ResponseEntity<AppApiResponse<CategorySummaryRes>> getCategoryById(
+  public ResponseEntity<AppApiResponse<CategorySummaryResponse>> getCategoryById(
       @PathVariable String id) {
     try {
       UUID categoryId = UUID.fromString(id);
 
-      var category = categoryService.getCategoryById(categoryId);
+      var category = categoryService.getActiveCategoryById(categoryId);
       return ResponseEntity.status(200)
           .body(
-              AppApiResponse.<CategorySummaryRes>builder()
+              AppApiResponse.<CategorySummaryResponse>builder()
                   .code(1000)
                   .status(ApiStatus.SUCCESS)
                   .data(category)
                   .message("Get Category successfully")
                   .build());
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
       throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
     }
   }
@@ -223,13 +222,13 @@ public class CategoryController {
                                                             """)))
       })
   @GetMapping
-  public ResponseEntity<AppApiResponse<Page<Category>>> getCategories(
+  public ResponseEntity<AppApiResponse<Page<CategorySummaryResponse>>> getCategories(
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
-    var categories = categoryService.getCategories(page, size);
+    var categories = categoryService.getActiveCategories(page, size);
     return ResponseEntity.status(200)
         .body(
-            AppApiResponse.<Page<Category>>builder()
+            AppApiResponse.<Page<CategorySummaryResponse>>builder()
                 .code(1000)
                 .status(ApiStatus.SUCCESS)
                 .data(categories)
@@ -278,7 +277,8 @@ public class CategoryController {
       })
   @PutMapping("/{id}")
   public ResponseEntity<AppApiResponse<Void>> updateCategory(
-      @Valid @PathVariable @ValidUUID String id, @Valid @RequestBody UpdateCategoryReq request) {
+      @Valid @PathVariable @ValidUUID String id,
+      @Valid @RequestBody UpdateCategoryRequest request) {
 
     categoryService.updateCategory(UUID.fromString(id), request);
     return ResponseEntity.status(200)

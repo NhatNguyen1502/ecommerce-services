@@ -12,7 +12,16 @@ public enum ErrorCode {
   CATEGORY_NAME_REQUIRED(1003, "Category name is required"),
   CATEGORY_NOT_FOUND(1004, "Category not found"),
   ID_SHOULD_BE_UUID(1005, "ID should be UUID"),
-  CATEGORY_EXISTS(1006, "Category exists");
+  CATEGORY_EXISTS(1006, "Category exists"),
+  PRODUCT_NOT_FOUND(1007, "Product not found"),
+  CATEGORY_ID_REQUIRED(1008, "Category ID is required"),
+  PRODUCT_NAME_REQUIRED(1009, "Product name is required"),
+  INVALID_PRODUCT_NAME(1010, "Product name is not longer than 200 characters"),
+  PRODUCT_PRICE_REQUIRED(1011, "Product price is required"),
+  PRODUCT_PRICE_GREATER_THAN_ZERO(1012, "Product price must be greater than zero"),
+  PRODUCT_QUANTITY_REQUIRED(1013, "Product quantity is required"),
+  PRODUCT_QUANTITY_GREATER_THAN_ZERO(1014, "Product quantity must be greater than zero"),
+  IMAGE_REQUIRED(1015, "Image is required");
 
   int code;
   String message;
