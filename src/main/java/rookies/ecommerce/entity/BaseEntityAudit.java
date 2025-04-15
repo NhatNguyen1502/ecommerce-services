@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Setter
 @MappedSuperclass
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public abstract class BaseEntityAudit extends BaseEntity {
+public abstract class BaseEntityAudit extends IBaseEntity {
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
   LocalDateTime createdAt;

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import rookies.ecommerce.dto.projection.product.ProductWithCategoryNameProjection;
+import rookies.ecommerce.dto.projection.product.IProductWithCategoryNameProjection;
 import rookies.ecommerce.dto.request.product.CreateProductRequest;
 import rookies.ecommerce.dto.request.product.UpdateProductRequest;
 import rookies.ecommerce.dto.response.ApiStatus;
@@ -34,7 +34,7 @@ import rookies.ecommerce.dto.response.AppApiResponse;
 import rookies.ecommerce.dto.response.product.ProductDetailResponse;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
-import rookies.ecommerce.service.product.ProductServiceImpl;
+import rookies.ecommerce.service.product.ProductService;
 import rookies.ecommerce.validation.ValidUUID;
 
 @RestController
@@ -43,7 +43,7 @@ import rookies.ecommerce.validation.ValidUUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductController {
 
-  ProductServiceImpl productService;
+  ProductService productService;
 
   @Operation(
       summary = "Create a new Product",
@@ -276,13 +276,13 @@ public class ProductController {
                                                     """)))
       })
   @GetMapping
-  public ResponseEntity<AppApiResponse<Page<ProductWithCategoryNameProjection>>> getProducts(
+  public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>> getProducts(
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
     var products = productService.getActiveProducts(page, size);
     return ResponseEntity.status(200)
         .body(
-            AppApiResponse.<Page<ProductWithCategoryNameProjection>>builder()
+            AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
                 .code(1000)
                 .status(ApiStatus.SUCCESS)
                 .data(products)
