@@ -4,7 +4,7 @@ import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
 
 /** Interface for cloud storage operations */
-public interface UploadService {
+public interface IUploadService {
 
   /**
    * Upload an image to cloud storage

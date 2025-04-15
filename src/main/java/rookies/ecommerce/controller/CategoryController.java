@@ -29,7 +29,7 @@ import rookies.ecommerce.dto.response.AppApiResponse;
 import rookies.ecommerce.dto.response.category.CategorySummaryResponse;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
-import rookies.ecommerce.service.category.CategoryServiceImpl;
+import rookies.ecommerce.service.category.CategoryService;
 import rookies.ecommerce.validation.ValidUUID;
 
 @RestController
@@ -37,7 +37,7 @@ import rookies.ecommerce.validation.ValidUUID;
 @RequestMapping("api/categories")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CategoryController {
-  CategoryServiceImpl categoryService;
+  CategoryService categoryService;
 
   @Operation(
       summary = "Create a new Category",

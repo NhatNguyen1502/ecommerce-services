@@ -3,7 +3,7 @@ package rookies.ecommerce.dto.projection.product;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public interface ProductWithCategoryNameProjection {
+public interface IProductWithCategoryNameProjection {
   UUID getId();
 
   String getCategoryName();
