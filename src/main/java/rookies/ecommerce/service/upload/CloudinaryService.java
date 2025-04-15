@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CloudinaryServiceImpl implements UploadService {
+public class CloudinaryService implements IUploadService {
 
   Cloudinary cloudinary;
 
