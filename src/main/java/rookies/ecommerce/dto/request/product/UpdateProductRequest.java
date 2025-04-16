@@ -27,5 +27,5 @@ public class UpdateProductRequest {
   @Min(value = 0, message = "Quantity must be greater than or equal to 0")
   int quantity;
 
-  boolean isFeatured = false;
+  boolean isFeatured;
 }

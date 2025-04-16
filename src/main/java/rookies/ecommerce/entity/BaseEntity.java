@@ -16,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @MappedSuperclass
 @FieldDefaults(level = AccessLevel.PROTECTED)
-public abstract class IBaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   UUID id;
@@ -24,7 +24,7 @@ public abstract class IBaseEntity implements Serializable {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof IBaseEntity that)) return false;
+    if (!(o instanceof BaseEntity that)) return false;
     return id.equals(that.id);
   }
 

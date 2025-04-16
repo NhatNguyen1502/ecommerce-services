@@ -58,13 +58,4 @@ public interface IProductService {
    * @param id the ID of the product to delete
    */
   void deleteProduct(UUID id);
-
-  /**
-   * Get all featured products with pagination
-   *
-   * @param page the page number
-   * @param size the page size
-   * @return paginated list of featured products
-   */
-  Page<IProductWithCategoryNameProjection> getFeaturedProducts(int page, int size);
 }
