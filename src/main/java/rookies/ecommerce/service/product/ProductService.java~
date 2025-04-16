@@ -75,7 +75,7 @@ public class ProductService implements IProductService {
     return ProductDetailResponse.builder()
         .id(product.getId())
         .categoryName(category.getName())
-        .categoryId(category.getId())
+            .categoryId(category.getId())
         .name(product.getName())
         .price(product.getPrice())
         .quantity(product.getQuantity())
@@ -187,11 +187,5 @@ public class ProductService implements IProductService {
    */
   public Page<IProductWithCategoryNameProjection> getFeaturedProducts(int page, int size) {
     return productRepository.findAllByIsDeletedFalseAndIsFeaturedTrue(PageRequest.of(page, size));
-  }
-
-  public Page<IProductWithCategoryNameProjection> getProductsByCategory(
-      int page, int size, UUID categoryId) {
-    return productRepository.findAllByIsDeletedFalseAndCategoryId(
-        categoryId, PageRequest.of(page, size));
   }
 }

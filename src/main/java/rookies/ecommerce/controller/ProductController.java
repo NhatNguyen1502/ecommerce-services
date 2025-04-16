@@ -60,12 +60,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                              "code": 1000,
-                                                              "status": "success",
-                                                              "message": "Create Product successfully"
-                                                            }
-                                                            """)
+                                                                    {
+                                                                      "code": 1000,
+                                                                      "status": "success",
+                                                                      "message": "Create Product successfully"
+                                                                    }
+                                                                    """)
                     })),
         @ApiResponse(
             responseCode = "400",
@@ -77,12 +77,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                              "code": 1003,
-                                                              "status": "fail",
-                                                              "message": "Product name is required"
-                                                            }
-                                                            """)
+                                                                    {
+                                                                      "code": 1003,
+                                                                      "status": "fail",
+                                                                      "message": "Product name is required"
+                                                                    }
+                                                                    """)
                     }))
       })
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -123,26 +123,26 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                    {
-                                                       "code": 1000,
-                                                       "status": "success",
-                                                       "message": "Get Product successfully",
-                                                       "data": {
-                                                         "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
-                                                         "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
-                                                         "name": "Chocolate Cake",
-                                                         "description": "Delicious chocolate cake",
-                                                         "imageUrl": "https://cloudinary.com/image/cake.jpg",
-                                                         "price": 29.99,
-                                                         "quantity": 10,
-                                                         "isFeatured": true,
-                                                         "createdAt": "2025-04-12T05:44:38.608453",
-                                                         "updatedAt": "2025-04-12T05:44:38.608453",
-                                                         "createdBy": null,
-                                                         "updatedBy": null
-                                                       }
-                                                     }
-                                                    """))),
+                                                            {
+                                                               "code": 1000,
+                                                               "status": "success",
+                                                               "message": "Get Product successfully",
+                                                               "data": {
+                                                                 "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
+                                                                 "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
+                                                                 "name": "Chocolate Cake",
+                                                                 "description": "Delicious chocolate cake",
+                                                                 "imageUrl": "https://cloudinary.com/image/cake.jpg",
+                                                                 "price": 29.99,
+                                                                 "quantity": 10,
+                                                                 "isFeatured": true,
+                                                                 "createdAt": "2025-04-12T05:44:38.608453",
+                                                                 "updatedAt": "2025-04-12T05:44:38.608453",
+                                                                 "createdBy": null,
+                                                                 "updatedBy": null
+                                                               }
+                                                             }
+                                                            """))),
         @ApiResponse(
             responseCode = "400",
             description = "Invalid input provided",
@@ -153,12 +153,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                               "code": 1005,
-                                                               "status": "fail",
-                                                               "message": "ID should be UUID"
-                                                             }
-                                                            """)
+                                                                    {
+                                                                       "code": 1005,
+                                                                       "status": "fail",
+                                                                       "message": "ID should be UUID"
+                                                                     }
+                                                                    """)
                     })),
         @ApiResponse(
             responseCode = "404",
@@ -170,12 +170,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                               "code": 1004,
-                                                               "status": "fail",
-                                                               "message": "Product not found"
-                                                             }
-                                                            """)
+                                                                    {
+                                                                       "code": 1004,
+                                                                       "status": "fail",
+                                                                       "message": "Product not found"
+                                                                     }
+                                                                    """)
                     }))
       })
   @GetMapping("/{id}")
@@ -211,69 +211,69 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                    {
-                                                       "code": 1000,
-                                                       "status": "success",
-                                                       "message": "Get Products successfully",
-                                                       "data": {
-                                                         "content": [
-                                                           {
-                                                             "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
-                                                             "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
-                                                             "name": "Chocolate Cake",
-                                                             "description": "Delicious chocolate cake",
-                                                             "imageUrl": "https://cloudinary.com/image/cake.jpg",
-                                                             "price": 29.99,
-                                                             "quantity": 10,
-                                                             "isFeatured": true,
-                                                             "createdAt": "2025-04-12T05:44:38.608453",
-                                                             "updatedAt": "2025-04-12T05:44:38.608453",
-                                                             "createdBy": null,
-                                                             "updatedBy": null
-                                                           },
-                                                           {
-                                                             "id": "6e296abc-a488-4103-b76f-f62dd25fc779",
-                                                             "categoryId": "900ff4cc-d821-4912-a106-4b3b176072ef",
-                                                             "name": "Strawberry Cheesecake",
-                                                             "description": "New York style cheesecake with strawberries",
-                                                             "imageUrl": "https://cloudinary.com/image/cheesecake.jpg",
-                                                             "price": 35.99,
-                                                             "quantity": 5,
-                                                             "isFeatured": false,
-                                                             "createdAt": "2025-04-11T20:47:29.562226",
-                                                             "updatedAt": "2025-04-11T20:47:29.562226",
-                                                             "createdBy": null,
-                                                             "updatedBy": null
-                                                           }
-                                                         ],
-                                                         "pageable": {
-                                                           "pageNumber": 0,
-                                                           "pageSize": 10,
-                                                           "sort": {
-                                                             "empty": false,
-                                                             "sorted": true,
-                                                             "unsorted": false
-                                                           },
-                                                           "offset": 0,
-                                                           "paged": true,
-                                                           "unpaged": false
-                                                         },
-                                                         "totalElements": 2,
-                                                         "totalPages": 1,
-                                                         "last": true,
-                                                         "size": 10,
-                                                         "number": 0,
-                                                         "sort": {
-                                                           "empty": false,
-                                                           "sorted": true,
-                                                           "unsorted": false
-                                                         },
-                                                         "numberOfElements": 2,
-                                                         "first": true,
-                                                         "empty": false
-                                                       }
-                                                     }
-                                                    """)))
+                                                            {
+                                                               "code": 1000,
+                                                               "status": "success",
+                                                               "message": "Get Products successfully",
+                                                               "data": {
+                                                                 "content": [
+                                                                   {
+                                                                     "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
+                                                                     "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
+                                                                     "name": "Chocolate Cake",
+                                                                     "description": "Delicious chocolate cake",
+                                                                     "imageUrl": "https://cloudinary.com/image/cake.jpg",
+                                                                     "price": 29.99,
+                                                                     "quantity": 10,
+                                                                     "isFeatured": true,
+                                                                     "createdAt": "2025-04-12T05:44:38.608453",
+                                                                     "updatedAt": "2025-04-12T05:44:38.608453",
+                                                                     "createdBy": null,
+                                                                     "updatedBy": null
+                                                                   },
+                                                                   {
+                                                                     "id": "6e296abc-a488-4103-b76f-f62dd25fc779",
+                                                                     "categoryId": "900ff4cc-d821-4912-a106-4b3b176072ef",
+                                                                     "name": "Strawberry Cheesecake",
+                                                                     "description": "New York style cheesecake with strawberries",
+                                                                     "imageUrl": "https://cloudinary.com/image/cheesecake.jpg",
+                                                                     "price": 35.99,
+                                                                     "quantity": 5,
+                                                                     "isFeatured": false,
+                                                                     "createdAt": "2025-04-11T20:47:29.562226",
+                                                                     "updatedAt": "2025-04-11T20:47:29.562226",
+                                                                     "createdBy": null,
+                                                                     "updatedBy": null
+                                                                   }
+                                                                 ],
+                                                                 "pageable": {
+                                                                   "pageNumber": 0,
+                                                                   "pageSize": 10,
+                                                                   "sort": {
+                                                                     "empty": false,
+                                                                     "sorted": true,
+                                                                     "unsorted": false
+                                                                   },
+                                                                   "offset": 0,
+                                                                   "paged": true,
+                                                                   "unpaged": false
+                                                                 },
+                                                                 "totalElements": 2,
+                                                                 "totalPages": 1,
+                                                                 "last": true,
+                                                                 "size": 10,
+                                                                 "number": 0,
+                                                                 "sort": {
+                                                                   "empty": false,
+                                                                   "sorted": true,
+                                                                   "unsorted": false
+                                                                 },
+                                                                 "numberOfElements": 2,
+                                                                 "first": true,
+                                                                 "empty": false
+                                                               }
+                                                             }
+                                                            """)))
       })
   @GetMapping
   public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>> getProducts(
@@ -305,12 +305,12 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                    {
-                                                       "code": 1000,
-                                                       "status": "success",
-                                                       "message": "Update Product successfully"
-                                                     }
-                                                    """))),
+                                                            {
+                                                               "code": 1000,
+                                                               "status": "success",
+                                                               "message": "Update Product successfully"
+                                                             }
+                                                            """))),
         @ApiResponse(
             responseCode = "400",
             description = "Invalid input provided",
@@ -321,12 +321,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                               "code": 1005,
-                                                               "status": "fail",
-                                                               "message": "ID should be UUID"
-                                                             }
-                                                            """)
+                                                                    {
+                                                                       "code": 1005,
+                                                                       "status": "fail",
+                                                                       "message": "ID should be UUID"
+                                                                     }
+                                                                    """)
                     })),
         @ApiResponse(
             responseCode = "404",
@@ -338,12 +338,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                               "code": 1004,
-                                                               "status": "fail",
-                                                               "message": "Product not found"
-                                                             }
-                                                            """)
+                                                                    {
+                                                                       "code": 1004,
+                                                                       "status": "fail",
+                                                                       "message": "Product not found"
+                                                                     }
+                                                                    """)
                     }))
       })
   @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -378,12 +378,12 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                    {
-                                                      "code": 1000,
-                                                      "status": "success",
-                                                      "message": "Product deleted successfully"
-                                                    }
-                                                    """))),
+                                                            {
+                                                              "code": 1000,
+                                                              "status": "success",
+                                                              "message": "Product deleted successfully"
+                                                            }
+                                                            """))),
         @ApiResponse(
             responseCode = "400",
             description = "Invalid input provided",
@@ -394,12 +394,12 @@ public class ProductController {
                       @ExampleObject(
                           value =
                               """
-                                                            {
-                                                               "code": 1005,
-                                                               "status": "fail",
-                                                               "message": "ID should be UUID"
-                                                             }
-                                                            """)
+                                                                    {
+                                                                       "code": 1005,
+                                                                       "status": "fail",
+                                                                       "message": "ID should be UUID"
+                                                                     }
+                                                                    """)
                     })),
         @ApiResponse(
             responseCode = "404",
@@ -411,12 +411,12 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                    {
-                                                      "code": 1004,
-                                                      "status": "fail",
-                                                      "message": "Product not found"
-                                                    }
-                                                    """)))
+                                                            {
+                                                              "code": 1004,
+                                                              "status": "fail",
+                                                              "message": "Product not found"
+                                                            }
+                                                            """)))
       })
   @DeleteMapping("/{id}")
   public ResponseEntity<AppApiResponse<Void>> deleteProduct(@PathVariable String id) {
@@ -449,71 +449,71 @@ public class ProductController {
                         @ExampleObject(
                             value =
                                 """
-                                                                        {
-                                                                           "code": 1000,
-                                                                           "status": "success",
-                                                                           "message": "Get featured Products successfully",
-                                                                           "data": {
-                                                                             "content": [
-                                                                               {
-                                                                                 "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
-                                                                                 "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
-                                                                                 "name": "Chocolate Cake",
-                                                                                 "description": "Delicious chocolate cake",
-                                                                                 "imageUrl": "https://cloudinary.com/image/cake.jpg",
-                                                                                 "price": 29.99,
-                                                                                 "quantity": 10,
-                                                                                 "isFeatured": true,
-                                                                                 "createdAt": "2025-04-12T05:44:38.608453",
-                                                                                 "updatedAt": "2025-04-12T05:44:38.608453",
-                                                                                 "createdBy": null,
-                                                                                 "updatedBy": null
-                                                                               },
-                                                                               {
-                                                                                 "id": "6e296abc-a488-4103-b76f-f62dd25fc779",
-                                                                                 "categoryId": "900ff4cc-d821-4912-a106-4b3b176072ef",
-                                                                                 "name": "Strawberry Cheesecake",
-                                                                                 "description": "New York style cheesecake with strawberries",
-                                                                                 "imageUrl": "https://cloudinary.com/image/cheesecake.jpg",
-                                                                                 "price": 35.99,
-                                                                                 "quantity": 5,
-                                                                                 "isFeatured": false,
-                                                                                 "createdAt": "2025-04-11T20:47:29.562226",
-                                                                                 "updatedAt": "2025-04-11T20:47:29.562226",
-                                                                                 "createdBy": null,
-                                                                                 "updatedBy": null
-                                                                               }
-                                                                             ],
-                                                                             "pageable": {
-                                                                               "pageNumber": 0,
-                                                                               "pageSize": 10,
-                                                                               "sort": {
-                                                                                 "empty": false,
-                                                                                 "sorted": true,
-                                                                                 "unsorted": false
-                                                                               },
-                                                                               "offset": 0,
-                                                                               "paged": true,
-                                                                               "unpaged": false
-                                                                             },
-                                                                             "totalElements": 2,
-                                                                             "totalPages": 1,
-                                                                             "last": true,
-                                                                             "size": 10,
-                                                                             "number": 0,
-                                                                             "sort": {
-                                                                               "empty": false,
-                                                                               "sorted": true,
-                                                                               "unsorted": false
-                                                                             },
-                                                                             "numberOfElements": 2,
-                                                                             "first": true,
-                                                                             "empty": false
-                                                                           }
-                                                                         }
-                                                                        """)))
+                                                            {
+                                                               "code": 1000,
+                                                               "status": "success",
+                                                               "message": "Get featured Products successfully",
+                                                               "data": {
+                                                                 "content": [
+                                                                   {
+                                                                     "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
+                                                                     "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
+                                                                     "name": "Chocolate Cake",
+                                                                     "description": "Delicious chocolate cake",
+                                                                     "imageUrl": "https://cloudinary.com/image/cake.jpg",
+                                                                     "price": 29.99,
+                                                                     "quantity": 10,
+                                                                     "isFeatured": true,
+                                                                     "createdAt": "2025-04-12T05:44:38.608453",
+                                                                     "updatedAt": "2025-04-12T05:44:38.608453",
+                                                                     "createdBy": null,
+                                                                     "updatedBy": null
+                                                                   },
+                                                                   {
+                                                                     "id": "6e296abc-a488-4103-b76f-f62dd25fc779",
+                                                                     "categoryId": "900ff4cc-d821-4912-a106-4b3b176072ef",
+                                                                     "name": "Strawberry Cheesecake",
+                                                                     "description": "New York style cheesecake with strawberries",
+                                                                     "imageUrl": "https://cloudinary.com/image/cheesecake.jpg",
+                                                                     "price": 35.99,
+                                                                     "quantity": 5,
+                                                                     "isFeatured": false,
+                                                                     "createdAt": "2025-04-11T20:47:29.562226",
+                                                                     "updatedAt": "2025-04-11T20:47:29.562226",
+                                                                     "createdBy": null,
+                                                                     "updatedBy": null
+                                                                   }
+                                                                 ],
+                                                                 "pageable": {
+                                                                   "pageNumber": 0,
+                                                                   "pageSize": 10,
+                                                                   "sort": {
+                                                                     "empty": false,
+                                                                     "sorted": true,
+                                                                     "unsorted": false
+                                                                   },
+                                                                   "offset": 0,
+                                                                   "paged": true,
+                                                                   "unpaged": false
+                                                                 },
+                                                                 "totalElements": 2,
+                                                                 "totalPages": 1,
+                                                                 "last": true,
+                                                                 "size": 10,
+                                                                 "number": 0,
+                                                                 "sort": {
+                                                                   "empty": false,
+                                                                   "sorted": true,
+                                                                   "unsorted": false
+                                                                 },
+                                                                 "numberOfElements": 2,
+                                                                 "first": true,
+                                                                 "empty": false
+                                                               }
+                                                             }
+                                                            """)))
       })
-  @GetMapping
+  @GetMapping("/featured")
   public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>>
       getFeaturedProducts(
           @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {

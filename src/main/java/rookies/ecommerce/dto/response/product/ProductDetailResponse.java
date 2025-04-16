@@ -15,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 public class ProductDetailResponse {
   UUID id;
   String categoryName;
+  UUID categoryId;
   String name;
   String description;
   String imageUrl;
