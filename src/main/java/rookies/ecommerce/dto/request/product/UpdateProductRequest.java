@@ -1,7 +1,6 @@
 package rookies.ecommerce.dto.request.product;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -13,18 +12,17 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdateProductRequest {
-  @NotNull(message = "Category ID is required")
   private UUID categoryId;
 
-  @Size(max = 200, message = "Product name must be less than 200 characters")
+  @Size(max = 200, message = "INVALID_PRODUCT_NAME")
   String name;
 
   String description;
 
-  @Min(value = 0, message = "Price must be greater than or equal to 0")
+  @Min(value = 0, message = "PRODUCT_PRICE_GREATER_THAN_ZERO")
   double price;
 
-  @Min(value = 0, message = "Quantity must be greater than or equal to 0")
+  @Min(value = 0, message = "PRODUCT_QUANTITY_GREATER_THAN_ZERO")
   int quantity;
 
   boolean isFeatured;
