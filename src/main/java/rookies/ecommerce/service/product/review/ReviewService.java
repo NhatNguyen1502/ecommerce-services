@@ -1,0 +1,57 @@
+package rookies.ecommerce.service.product.review;
+
+import java.util.List;
+import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import rookies.ecommerce.dto.projection.product.review.ReviewWithUserPreviewProjection;
+import rookies.ecommerce.dto.request.product.review.CreateReviewRequest;
+import rookies.ecommerce.entity.Product;
+import rookies.ecommerce.entity.Review;
+import rookies.ecommerce.entity.user.Customer;
+import rookies.ecommerce.exception.AppException;
+import rookies.ecommerce.exception.ErrorCode;
+import rookies.ecommerce.repository.ReviewRepository;
+import rookies.ecommerce.service.product.ProductService;
+import rookies.ecommerce.service.user.UserService;
+
+@Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class ReviewService implements IReviewService {
+
+  ReviewRepository reviewRepository;
+  UserService userService;
+  ProductService productService;
+
+  @Override
+  public void createReview(CreateReviewRequest request, UUID productId, UUID customerId) {
+    Customer customer = userService.getUserById(customerId);
+
+    Product product = productService.getProductById(productId);
+
+    boolean exists = reviewRepository.existsByProductIdAndCustomerId(productId, customerId);
+
+    if (exists) {
+      throw new AppException(ErrorCode.REVIEW_EXISTS, HttpStatus.BAD_REQUEST);
+    }
+
+    Review review = new Review();
+    review.setCustomer(customer);
+    review.setProduct(product);
+    review.setContent(request.getContent());
+    review.setRating(request.getRating());
+
+    reviewRepository.save(review);
+  }
+
+  @Override
+  public List<ReviewWithUserPreviewProjection> getReviewsByProduct(UUID productId) {
+    Product product = productService.getProductById(productId);
+
+    return reviewRepository.findByProductId(product.getId());
+  }
+}

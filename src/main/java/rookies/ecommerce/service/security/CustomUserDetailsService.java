@@ -17,17 +17,17 @@ import rookies.ecommerce.repository.UserRepository;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomUserDetailsService implements UserDetailsService {
-    UserRepository userRepository;
+  UserRepository userRepository;
 
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        return userRepository
-                .findByEmailAndIsDeletedFalseAndIsActiveTrue(email)
-                .map(user -> new User(user.getEmail(), user.getPassword(), user.getAuthorities()))
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND, HttpStatus.BAD_REQUEST));
-    }
+  public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+    return userRepository
+        .findByEmailAndIsDeletedFalseAndIsActiveTrue(email)
+        .map(user -> new User(user.getEmail(), user.getPassword(), user.getAuthorities()))
+        .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND, HttpStatus.BAD_REQUEST));
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
+  }
 }

@@ -8,9 +8,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -50,88 +52,88 @@ import rookies.ecommerce.validation.ValidUUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductController {
 
-  ProductService productService;
-  ReviewService reviewService;
-  JwtService jwtService;
+    ProductService productService;
+    ReviewService reviewService;
+    JwtService jwtService;
 
-  @Operation(
-      summary = "Create a new Product",
-      description = "Create a new Product by providing valid product details and image.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "Create Product successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+    @Operation(
+            summary = "Create a new Product",
+            description = "Create a new Product by providing valid product details and image.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Create Product successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                       "code": 1000,
                                                                       "status": "success",
                                                                       "message": "Create Product successfully"
                                                                     }
                                                                     """)
-                    })),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid input provided",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                                    })),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                       "code": 1003,
                                                                       "status": "fail",
                                                                       "message": "Product name is required"
                                                                     }
                                                                     """)
-                    }))
-      })
-  @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public ResponseEntity<AppApiResponse<Void>> createProduct(
-      @Parameter(
-              description = "Product DTO in JSON format",
-              content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-          @RequestPart
-          @Valid
-          CreateProductRequest product,
-      @Parameter(description = "File to upload") @RequestPart MultipartFile image)
-      throws IOException {
+                                    }))
+            })
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<AppApiResponse<Void>> createProduct(
+            @Parameter(
+                    description = "Product DTO in JSON format",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @RequestPart
+            @Valid
+            CreateProductRequest product,
+            @Parameter(description = "File to upload") @RequestPart MultipartFile image)
+            throws IOException {
 
-    if (image.isEmpty()) {
-      throw new AppException(ErrorCode.IMAGE_REQUIRED, HttpStatus.BAD_REQUEST);
+        if (image.isEmpty()) {
+            throw new AppException(ErrorCode.IMAGE_REQUIRED, HttpStatus.BAD_REQUEST);
+        }
+
+        productService.createProduct(product, image);
+        return ResponseEntity.status(201)
+                .body(
+                        AppApiResponse.<Void>builder()
+                                .code(1000)
+                                .status(ApiStatus.SUCCESS)
+                                .message("Create Product successfully")
+                                .build());
     }
 
-    productService.createProduct(product, image);
-    return ResponseEntity.status(201)
-        .body(
-            AppApiResponse.<Void>builder()
-                .code(1000)
-                .status(ApiStatus.SUCCESS)
-                .message("Create Product successfully")
-                .build());
-  }
-
-  @Operation(summary = "Get a Product by id", description = "Get a Product by id.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Get Product successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+    @Operation(summary = "Get a Product by id", description = "Get a Product by id.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Get Product successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                                "code": 1000,
                                                                "status": "success",
@@ -152,74 +154,74 @@ public class ProductController {
                                                                }
                                                              }
                                                             """))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid input provided",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1005,
                                                                        "status": "fail",
                                                                        "message": "ID should be UUID"
                                                                      }
                                                                     """)
-                    })),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Product not found",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                                    })),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Product not found",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1004,
                                                                        "status": "fail",
                                                                        "message": "Product not found"
                                                                      }
                                                                     """)
-                    }))
-      })
-  @GetMapping("/{id}")
-  public ResponseEntity<AppApiResponse<ProductDetailResponse>> getProductById(
-      @PathVariable String id) {
-    try {
-      UUID productId = UUID.fromString(id);
+                                    }))
+            })
+    @GetMapping("/{id}")
+    public ResponseEntity<AppApiResponse<ProductDetailResponse>> getProductById(
+            @PathVariable String id) {
+        try {
+            UUID productId = UUID.fromString(id);
 
-      var product = productService.getProductDetailById(productId);
-      return ResponseEntity.status(200)
-          .body(
-              AppApiResponse.<ProductDetailResponse>builder()
-                  .code(1000)
-                  .status(ApiStatus.SUCCESS)
-                  .data(product)
-                  .message("Get Product successfully")
-                  .build());
-    } catch (IllegalArgumentException e) {
-      throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+            var product = productService.getProductDetailById(productId);
+            return ResponseEntity.status(200)
+                    .body(
+                            AppApiResponse.<ProductDetailResponse>builder()
+                                    .code(1000)
+                                    .status(ApiStatus.SUCCESS)
+                                    .data(product)
+                                    .message("Get Product successfully")
+                                    .build());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+        }
     }
-  }
 
-  @Operation(summary = "Get Products", description = "Get paginated list of products.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Get Products successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+    @Operation(summary = "Get Products", description = "Get paginated list of products.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Get Products successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                                "code": 1000,
                                                                "status": "success",
@@ -283,181 +285,181 @@ public class ProductController {
                                                                }
                                                              }
                                                             """)))
-      })
-  @GetMapping
-  public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>> getProducts(
-      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+            })
+    @GetMapping
+    public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>> getProducts(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
-    var products = productService.getActiveProducts(page, size);
-    return ResponseEntity.status(200)
-        .body(
-            AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
-                .code(1000)
-                .status(ApiStatus.SUCCESS)
-                .data(products)
-                .message("Get Products successfully")
-                .build());
-  }
+        var products = productService.getActiveProducts(page, size);
+        return ResponseEntity.status(200)
+                .body(
+                        AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
+                                .code(1000)
+                                .status(ApiStatus.SUCCESS)
+                                .data(products)
+                                .message("Get Products successfully")
+                                .build());
+    }
 
-  @Operation(
-      summary = "Update a Product",
-      description = "Update Product by providing valid product fields and optional new image.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Update Product successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+    @Operation(
+            summary = "Update a Product",
+            description = "Update Product by providing valid product fields and optional new image.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Update Product successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                                "code": 1000,
                                                                "status": "success",
                                                                "message": "Update Product successfully"
                                                              }
                                                             """))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid input provided",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1005,
                                                                        "status": "fail",
                                                                        "message": "ID should be UUID"
                                                                      }
                                                                     """)
-                    })),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Product not found",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                                    })),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Product not found",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1004,
                                                                        "status": "fail",
                                                                        "message": "Product not found"
                                                                      }
                                                                     """)
-                    }))
-      })
-  @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<AppApiResponse<Void>> updateProduct(
-      @Valid @PathVariable @ValidUUID String id,
-      @RequestPart("product") @Valid UpdateProductRequest productDTO,
-      @RequestPart(value = "image", required = false) MultipartFile image)
-      throws IOException {
+                                    }))
+            })
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<AppApiResponse<Void>> updateProduct(
+            @Valid @PathVariable @ValidUUID String id,
+            @RequestPart("product") @Valid UpdateProductRequest productDTO,
+            @RequestPart(value = "image", required = false) MultipartFile image)
+            throws IOException {
 
-    productService.updateProduct(UUID.fromString(id), productDTO, image);
-    return ResponseEntity.status(200)
-        .body(
-            AppApiResponse.<Void>builder()
-                .code(1000)
-                .status(ApiStatus.SUCCESS)
-                .message("Update Product successfully")
-                .build());
-  }
+        productService.updateProduct(UUID.fromString(id), productDTO, image);
+        return ResponseEntity.status(200)
+                .body(
+                        AppApiResponse.<Void>builder()
+                                .code(1000)
+                                .status(ApiStatus.SUCCESS)
+                                .message("Update Product successfully")
+                                .build());
+    }
 
-  @Operation(
-      summary = "Delete a Product",
-      description = "Delete a Product by id (also removes image from cloud storage)")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Product deleted successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+    @Operation(
+            summary = "Delete a Product",
+            description = "Delete a Product by id (also removes image from cloud storage)")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Product deleted successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                               "code": 1000,
                                                               "status": "success",
                                                               "message": "Product deleted successfully"
                                                             }
                                                             """))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid input provided",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1005,
                                                                        "status": "fail",
                                                                        "message": "ID should be UUID"
                                                                      }
                                                                     """)
-                    })),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Product not found",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+                                    })),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Product not found",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                               "code": 1004,
                                                               "status": "fail",
                                                               "message": "Product not found"
                                                             }
                                                             """)))
-      })
-  @DeleteMapping("/{id}")
-  public ResponseEntity<AppApiResponse<Void>> deleteProduct(@PathVariable String id) {
-    try {
-      UUID productId = UUID.fromString(id);
-      productService.deleteProduct(productId);
-      return ResponseEntity.ok(
-          AppApiResponse.<Void>builder()
-              .code(1000)
-              .status(ApiStatus.SUCCESS)
-              .message("Product deleted successfully")
-              .build());
-    } catch (IllegalArgumentException e) {
-      throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AppApiResponse<Void>> deleteProduct(@PathVariable String id) {
+        try {
+            UUID productId = UUID.fromString(id);
+            productService.deleteProduct(productId);
+            return ResponseEntity.ok(
+                    AppApiResponse.<Void>builder()
+                            .code(1000)
+                            .status(ApiStatus.SUCCESS)
+                            .message("Product deleted successfully")
+                            .build());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+        }
     }
-  }
 
-  @Operation(
-      summary = "Get featured Products",
-      description = "Get paginated list of featured products.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Get featured Products successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples =
-                        @ExampleObject(
-                            value =
-                                """
+    @Operation(
+            summary = "Get featured Products",
+            description = "Get paginated list of featured products.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Get featured Products successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples =
+                                    @ExampleObject(
+                                            value =
+                                                    """
                                                             {
                                                                "code": 1000,
                                                                "status": "success",
@@ -521,102 +523,99 @@ public class ProductController {
                                                                }
                                                              }
                                                             """)))
-      })
-  @GetMapping("/featured")
-  public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>>
-      getFeaturedProducts(
-          @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+            })
+    @GetMapping("/featured")
+    public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>>
+    getFeaturedProducts(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
-    var products = productService.getFeaturedProducts(page, size);
-    return ResponseEntity.status(200)
-        .body(
-            AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
-                .code(1000)
-                .status(ApiStatus.SUCCESS)
-                .data(products)
-                .message("Get featured Products successfully")
-                .build());
-  }
+        var products = productService.getFeaturedProducts(page, size);
+        return ResponseEntity.status(200)
+                .body(
+                        AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
+                                .code(1000)
+                                .status(ApiStatus.SUCCESS)
+                                .data(products)
+                                .message("Get featured Products successfully")
+                                .build());
+    }
 
-  @Operation(
-      summary = "Create Review",
-      description = "Create a new Review for product by providing valid review details.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "Create Review successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+    @Operation(
+            summary = "Create Review",
+            description = "Create a new Review for product by providing valid review details.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Create Review successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                       "code": 1000,
                                                                       "status": "success",
                                                                       "message": "Create Review successfully"
                                                                     }
                                                                     """)
-                    })),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid input provided",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+                                    })),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1036,
                                                                        "status": "fail",
                                                                        "message": "Rating must be between 1 and 5"
                                                                      }
                                                                     """)
-                    }))
-      })
-  @PostMapping("/{productId}/reviews")
-  public ResponseEntity<AppApiResponse<Void>> createReview(
-      @Valid @RequestBody CreateReviewRequest request,
-      @PathVariable String productId,
-      HttpServletRequest httpServletRequest) {
-    try {
-      var userId = jwtService.extractUserIdFromHeader(httpServletRequest);
-      reviewService.createReview(request, UUID.fromString(productId), userId);
-      return ResponseEntity.status(HttpStatus.CREATED)
-          .body(
-              AppApiResponse.<Void>builder()
-                  .code(1000)
-                  .status(ApiStatus.SUCCESS)
-                  .message("Review created successfully")
-                  .build());
-    } catch (IllegalArgumentException e) {
-      throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+                                    }))
+            })
+    @PostMapping("/{productId}/reviews")
+    public ResponseEntity<AppApiResponse<Void>> createReview(
+            @Valid @RequestBody CreateReviewRequest request,
+            @PathVariable String productId, HttpServletRequest httpServletRequest) {
+        try {
+            var userId = jwtService.extractUserIdFromHeader(httpServletRequest);
+            reviewService.createReview(request, UUID.fromString(productId), userId);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(AppApiResponse.<Void>builder()
+                            .code(1000)
+                            .status(ApiStatus.SUCCESS)
+                            .message("Review created successfully")
+                            .build());
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
+        }
     }
-  }
 
-  @Operation(
-      summary = "Get reviews by product",
-      description = "Get all reviews for a product by providing valid product ID.")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "Get reviews for product successfully",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    examples = {
-                      @ExampleObject(
-                          value =
-                              """
+    @Operation(summary = "Get reviews by product",
+            description = "Create a new Review for product by providing valid review details.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Create Review successfully",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
                                                                     {
                                                                        "code": 1000,
                                                                        "status": "success",
-                                                                       "message": "Get reviews successfully",
+                                                                       "message": "Fetched reviews successfully",
                                                                        "data": [
                                                                          {
                                                                            "id": "db380520-3e31-4ba6-9128-f1f23a8fe73d",
@@ -632,19 +631,35 @@ public class ProductController {
                                                                        ]
                                                                      }
                                                                     """)
-                    }))
-      })
-  @GetMapping("/{productId}/reviews")
-  public ResponseEntity<AppApiResponse<List<ReviewWithUserPreviewProjection>>> getReviewsByProduct(
-      @PathVariable UUID productId) {
+                                    })),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input provided",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    examples = {
+                                            @ExampleObject(
+                                                    value =
+                                                            """
+                                                                    {
+                                                                       "code": 1036,
+                                                                       "status": "fail",
+                                                                       "message": "Rating must be between 1 and 5"
+                                                                     }
+                                                                    """)
+                                    }))
+            })
+    @GetMapping("/{productId}/reviews")
+    public ResponseEntity<AppApiResponse<List<ReviewWithUserPreviewProjection>>> getReviewsByProduct(
+            @PathVariable UUID productId) {
 
-    List<ReviewWithUserPreviewProjection> reviews = reviewService.getReviewsByProduct(productId);
-    return ResponseEntity.ok(
-        AppApiResponse.<List<ReviewWithUserPreviewProjection>>builder()
-            .code(1000)
-            .status(ApiStatus.SUCCESS)
-            .message("Get reviews successfully")
-            .data(reviews)
-            .build());
-  }
+        List<ReviewWithUserPreviewProjection> reviews = reviewService.getReviewsByProduct(productId);
+        return ResponseEntity.ok(AppApiResponse.<List<ReviewWithUserPreviewProjection>>builder()
+                .code(1000)
+                .status(ApiStatus.SUCCESS)
+                .message("Fetched reviews successfully")
+                .data(reviews)
+                .build());
+    }
 }

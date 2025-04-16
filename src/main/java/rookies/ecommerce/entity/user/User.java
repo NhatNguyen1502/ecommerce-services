@@ -2,14 +2,12 @@ package rookies.ecommerce.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -47,8 +45,8 @@ public class User extends BaseEntityAudit {
 
   public Collection<GrantedAuthority> getAuthorities() {
     return role != null && role.getName().equals("ADMIN")
-            ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))
-            : Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+        ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))
+        : Collections.singletonList(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
   }
 
   @Override

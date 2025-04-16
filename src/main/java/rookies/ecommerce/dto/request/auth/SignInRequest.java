@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SignInRequest {
-    @NotBlank(message = "EMAIL_REQUIRED")
-    @Email(message = "EMAIL_INVALID")
-    String email;
+  @NotBlank(message = "EMAIL_REQUIRED")
+  @Email(message = "EMAIL_INVALID")
+  String email;
 
-    @NotBlank(message = "PASSWORD_REQUIRED")
-    String password;
+  @NotBlank(message = "PASSWORD_REQUIRED")
+  String password;
 }

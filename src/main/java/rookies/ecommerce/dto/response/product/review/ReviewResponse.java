@@ -1,5 +1,6 @@
-package rookies.ecommerce.dto.response.user;
+package rookies.ecommerce.dto.response.product.review;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,13 +12,12 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CustomerSumaryResponse {
+public class ReviewResponse {
   UUID id;
-  String email;
-  String firstName;
-  String lastName;
-  String phoneNumber;
-  String address;
-  boolean isActive;
-  String roleName;
+  String content;
+  Integer rating;
+  LocalDateTime createdAt;
+  UUID customerId;
+  String customerName;
+  UUID productId;
 }
