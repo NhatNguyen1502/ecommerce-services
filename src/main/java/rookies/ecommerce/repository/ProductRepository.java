@@ -12,4 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
   Page<IProductWithCategoryNameProjection> findAllByIsDeletedFalse(Pageable pageable);
 
   Optional<Product> findByIdAndIsDeletedFalse(UUID id);
+
+  Page<IProductWithCategoryNameProjection> findAllByIsDeletedFalseAndIsFeaturedTrue(
+      Pageable pageable);
 }

@@ -26,7 +26,8 @@ public enum ErrorCode {
   EMAIL_REQUIRED(1017, "Email is required"),
   INVALID_EMAIL(1018, "Invalid email"),
   PASSWORD_REQUIRED(1019, "Password is required"),
-  INVALID_PASSWORD_LENGTH(1020, "Password must be at least 8 characters and at most 100 characters"),
+  INVALID_PASSWORD_LENGTH(
+      1020, "Password must be at least 8 characters and at most 100 characters"),
   FIRST_NAME_REQUIRED(1021, "First name is required"),
   INVALID_FIRST_NAME(1022, "First name is not longer than 50 characters"),
   LAST_NAME_REQUIRED(1023, "Last name is required"),

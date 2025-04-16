@@ -5,28 +5,32 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
+
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Setter
 @Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateProductRequest {
   @NotNull(message = "CATEGORY_ID_REQUIRED")
-  private UUID categoryId;
+  UUID categoryId;
 
   @NotBlank(message = "PRODUCT_NAME_REQUIRED")
   @Size(max = 200, message = "INVALID_PRODUCT_NAME")
-  private String name;
+  String name;
 
-  private String description;
+  String description;
 
   @NotNull(message = "PRODUCT_PRICE_REQUIRED")
   @Min(value = 0, message = "PRODUCT_PRICE_GREATER_THAN_ZERO")
-  private double price;
+  double price;
 
   @NotNull(message = "PRODUCT_QUANTITY_REQUIRED")
   @Min(value = 0, message = "PRODUCT_QUANTITY_GREATER_THAN_ZERO")
-  private int quantity;
+  int quantity;
 
-  private boolean isFeatured = false;
+  boolean isFeatured = false;
 }

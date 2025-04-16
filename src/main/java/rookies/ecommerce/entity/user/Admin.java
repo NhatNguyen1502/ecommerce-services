@@ -12,5 +12,4 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Table(name = "admins")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Admin extends User {
-}
+public class Admin extends User {}

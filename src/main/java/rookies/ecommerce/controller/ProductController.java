@@ -433,4 +433,99 @@ public class ProductController {
       throw new AppException(ErrorCode.ID_SHOULD_BE_UUID, HttpStatus.BAD_REQUEST);
     }
   }
+
+  @Operation(
+      summary = "Get featured Products",
+      description = "Get paginated list of featured products.")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Get featured Products successfully",
+            content =
+                @Content(
+                    mediaType = "application/json",
+                    examples =
+                        @ExampleObject(
+                            value =
+                                """
+                                                                        {
+                                                                           "code": 1000,
+                                                                           "status": "success",
+                                                                           "message": "Get featured Products successfully",
+                                                                           "data": {
+                                                                             "content": [
+                                                                               {
+                                                                                 "id": "700dd3cc-b821-4812-a106-4b3b176072ef",
+                                                                                 "categoryId": "800ee4cc-c821-4912-a106-4b3b176072ef",
+                                                                                 "name": "Chocolate Cake",
+                                                                                 "description": "Delicious chocolate cake",
+                                                                                 "imageUrl": "https://cloudinary.com/image/cake.jpg",
+                                                                                 "price": 29.99,
+                                                                                 "quantity": 10,
+                                                                                 "isFeatured": true,
+                                                                                 "createdAt": "2025-04-12T05:44:38.608453",
+                                                                                 "updatedAt": "2025-04-12T05:44:38.608453",
+                                                                                 "createdBy": null,
+                                                                                 "updatedBy": null
+                                                                               },
+                                                                               {
+                                                                                 "id": "6e296abc-a488-4103-b76f-f62dd25fc779",
+                                                                                 "categoryId": "900ff4cc-d821-4912-a106-4b3b176072ef",
+                                                                                 "name": "Strawberry Cheesecake",
+                                                                                 "description": "New York style cheesecake with strawberries",
+                                                                                 "imageUrl": "https://cloudinary.com/image/cheesecake.jpg",
+                                                                                 "price": 35.99,
+                                                                                 "quantity": 5,
+                                                                                 "isFeatured": false,
+                                                                                 "createdAt": "2025-04-11T20:47:29.562226",
+                                                                                 "updatedAt": "2025-04-11T20:47:29.562226",
+                                                                                 "createdBy": null,
+                                                                                 "updatedBy": null
+                                                                               }
+                                                                             ],
+                                                                             "pageable": {
+                                                                               "pageNumber": 0,
+                                                                               "pageSize": 10,
+                                                                               "sort": {
+                                                                                 "empty": false,
+                                                                                 "sorted": true,
+                                                                                 "unsorted": false
+                                                                               },
+                                                                               "offset": 0,
+                                                                               "paged": true,
+                                                                               "unpaged": false
+                                                                             },
+                                                                             "totalElements": 2,
+                                                                             "totalPages": 1,
+                                                                             "last": true,
+                                                                             "size": 10,
+                                                                             "number": 0,
+                                                                             "sort": {
+                                                                               "empty": false,
+                                                                               "sorted": true,
+                                                                               "unsorted": false
+                                                                             },
+                                                                             "numberOfElements": 2,
+                                                                             "first": true,
+                                                                             "empty": false
+                                                                           }
+                                                                         }
+                                                                        """)))
+      })
+  @GetMapping
+  public ResponseEntity<AppApiResponse<Page<IProductWithCategoryNameProjection>>>
+      getFeaturedProducts(
+          @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+    var products = productService.getFeaturedProducts(page, size);
+    return ResponseEntity.status(200)
+        .body(
+            AppApiResponse.<Page<IProductWithCategoryNameProjection>>builder()
+                .code(1000)
+                .status(ApiStatus.SUCCESS)
+                .data(products)
+                .message("Get featured Products successfully")
+                .build());
+  }
 }

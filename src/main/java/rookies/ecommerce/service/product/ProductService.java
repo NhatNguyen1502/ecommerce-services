@@ -34,12 +34,26 @@ public class ProductService implements IProductService {
   IUploadService cloudinaryService;
   ICategoryService categoryService;
 
+  /**
+   * Retrieves a page of active products sorted by creation time in descending order.
+   *
+   * @param page the page number
+   * @param size the page size
+   * @return a page of active products
+   */
   @Override
   public Page<IProductWithCategoryNameProjection> getActiveProducts(int page, int size) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
     return productRepository.findAllByIsDeletedFalse(pageable);
   }
 
+  /**
+   * Gets a product by its ID.
+   *
+   * @param id the unique identifier of the product to be retrieved
+   * @return the product with the given ID
+   * @throws AppException if the product with the given ID does not exist
+   */
   @Override
   public Product getProductById(UUID id) {
     return productRepository
@@ -47,6 +61,13 @@ public class ProductService implements IProductService {
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND, HttpStatus.NOT_FOUND));
   }
 
+  /**
+   * Retrieves a product by its ID, including its category name and other details.
+   *
+   * @param id the unique identifier of the product to be retrieved
+   * @return a {@link ProductDetailResponse} containing the product's details
+   * @throws AppException if the product with the given ID does not exist
+   */
   @Override
   public ProductDetailResponse getProductDetailById(UUID id) {
     Product product = getProductById(id);
@@ -65,6 +86,13 @@ public class ProductService implements IProductService {
         .build();
   }
 
+  /**
+   * Creates a new product with the specified details and uploads its image.
+   *
+   * @param productDTO the data transfer object containing new product details
+   * @param image the image file to be uploaded for the product
+   * @throws IOException if an error occurs during image upload
+   */
   @Override
   @Transactional
   public void createProduct(CreateProductRequest productDTO, MultipartFile image)
@@ -87,6 +115,15 @@ public class ProductService implements IProductService {
     productRepository.save(product);
   }
 
+  /**
+   * Updates an existing product with the provided details and optional new image.
+   *
+   * @param id the unique identifier of the product to be updated
+   * @param productDTO the data transfer object containing the updated product details
+   * @param image the new image file to be uploaded for the product (optional)
+   * @throws IOException if an error occurs during image upload
+   * @throws AppException if the product with the given ID does not exist
+   */
   @Override
   @Transactional
   public void updateProduct(UUID id, UpdateProductRequest productDTO, MultipartFile image)
@@ -118,6 +155,15 @@ public class ProductService implements IProductService {
     productRepository.save(product);
   }
 
+  /**
+   * Marks a product as deleted by setting its isDeleted flag to true.
+   *
+   * <p>This method is a "soft delete" which means it only marks the product as deleted and does not
+   * physically delete the product from the database.
+   *
+   * @param id the unique identifier of the product to be deleted
+   * @throws AppException if the product with the given ID does not exist
+   */
   @Override
   @Transactional
   public void deleteProduct(UUID id) {
@@ -129,5 +175,16 @@ public class ProductService implements IProductService {
     product.setIsDeleted(true);
 
     productRepository.save(product);
+  }
+
+  /**
+   * Retrieves a page of products marked as featured sorted by creation time in descending order.
+   *
+   * @param page the page number
+   * @param size the page size
+   * @return a page of featured products
+   */
+  public Page<IProductWithCategoryNameProjection> getFeaturedProducts(int page, int size) {
+    return productRepository.findAllByIsDeletedFalseAndIsFeaturedTrue(PageRequest.of(page, size));
   }
 }

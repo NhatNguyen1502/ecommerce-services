@@ -13,21 +13,21 @@ import rookies.ecommerce.repository.RoleRepository;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RoleInitializer implements CommandLineRunner {
 
-    RoleRepository roleRepository;
+  RoleRepository roleRepository;
 
-    @Override
-    public void run(String... args) {
-        if (!roleRepository.existsByName("ADMIN")) {
-            Role adminRole = new Role();
-            adminRole.setId(1);
-            adminRole.setName("ADMIN");
-            roleRepository.save(adminRole);
-        }
-        if (!roleRepository.existsByName("CUSTOMER")) {
-            Role userRole = new Role();
-            userRole.setId(2);
-            userRole.setName("CUSTOMER");
-            roleRepository.save(userRole);
-        }
+  @Override
+  public void run(String... args) {
+    if (!roleRepository.existsByName("ADMIN")) {
+      Role adminRole = new Role();
+      adminRole.setId(1);
+      adminRole.setName("ADMIN");
+      roleRepository.save(adminRole);
     }
+    if (!roleRepository.existsByName("CUSTOMER")) {
+      Role userRole = new Role();
+      userRole.setId(2);
+      userRole.setName("CUSTOMER");
+      roleRepository.save(userRole);
+    }
+  }
 }
