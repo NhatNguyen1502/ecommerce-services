@@ -42,7 +42,10 @@ public enum ErrorCode {
   INCORRECT_PASSWORD(1032, "Incorrect password"),
   REFRESH_TOKEN_REQUIRED(1033, "Refresh token is required"),
   UNACTIVATED_USER(1034, "User is not activated"),
-  EMAIL_ALREADY_EXISTS(1035, "Email already exists");
+  EMAIL_ALREADY_EXISTS(1035, "Email already exists"),
+  INVALID_RATING(1036, "Rating must be between 1 and 5"),
+  REVIEW_EXISTS(1037, "You have already reviewed this product"),
+  ;
 
   int code;
   String message;

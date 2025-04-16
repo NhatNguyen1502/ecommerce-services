@@ -6,9 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -56,6 +58,9 @@ public class Product extends BaseEntityAudit {
 
   @Column(name = "is_featured", columnDefinition = "boolean default false")
   boolean isFeatured;
+
+  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+  List<Review> reviews;
 
   @Override
   public boolean equals(Object o) {

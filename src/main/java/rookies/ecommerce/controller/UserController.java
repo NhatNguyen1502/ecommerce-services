@@ -27,7 +27,7 @@ import rookies.ecommerce.dto.request.user.UpdateCustomerRequest;
 import rookies.ecommerce.dto.response.ApiStatus;
 import rookies.ecommerce.dto.response.AppApiResponse;
 import rookies.ecommerce.dto.response.user.CustomerDetailResponse;
-import rookies.ecommerce.dto.response.user.CustomerSumaryResponse;
+import rookies.ecommerce.dto.response.user.CustomerSummaryResponse;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
 import rookies.ecommerce.service.user.UserService;
@@ -275,13 +275,13 @@ public class UserController {
                                                     """)))
       })
   @GetMapping
-  public ResponseEntity<AppApiResponse<Page<CustomerSumaryResponse>>> getAllCustomers(
+  public ResponseEntity<AppApiResponse<Page<CustomerSummaryResponse>>> getAllCustomers(
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
     var customers = customerService.getCustomers(page, size);
 
     return ResponseEntity.ok(
-        AppApiResponse.<Page<CustomerSumaryResponse>>builder()
+        AppApiResponse.<Page<CustomerSummaryResponse>>builder()
             .code(1000)
             .status(ApiStatus.SUCCESS)
             .message("Get Customers successfully")

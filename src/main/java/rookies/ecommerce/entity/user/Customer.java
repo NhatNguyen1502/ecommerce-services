@@ -2,12 +2,16 @@ package rookies.ecommerce.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import rookies.ecommerce.entity.Review;
 
 @Entity
 @Getter
@@ -27,6 +31,9 @@ public class Customer extends User {
 
   @Column(nullable = false)
   String address;
+
+  @OneToMany(fetch = FetchType.LAZY)
+  List<Review> reviews;
 
   @Override
   public boolean equals(Object o) {

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import rookies.ecommerce.dto.request.user.CreateCustomerRequest;
 import rookies.ecommerce.dto.request.user.UpdateCustomerRequest;
 import rookies.ecommerce.dto.response.user.CustomerDetailResponse;
-import rookies.ecommerce.dto.response.user.CustomerSumaryResponse;
+import rookies.ecommerce.dto.response.user.CustomerSummaryResponse;
 import rookies.ecommerce.entity.user.User;
 import rookies.ecommerce.exception.AppException;
 
@@ -52,7 +52,7 @@ public interface IUserService {
    */
   CustomerDetailResponse getCustomerDetails(UUID id);
 
-  Page<CustomerSumaryResponse> getCustomers(int page, int size);
+  Page<CustomerSummaryResponse> getCustomers(int page, int size);
 
   User getActiveUserByEmail(String email);
 }
