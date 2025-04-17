@@ -30,7 +30,7 @@ import rookies.ecommerce.dto.response.user.CustomerDetailResponse;
 import rookies.ecommerce.dto.response.user.CustomerSumaryResponse;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
-import rookies.ecommerce.service.user.CustomerService;
+import rookies.ecommerce.service.user.UserService;
 import rookies.ecommerce.validation.ValidUUID;
 
 @RestController
@@ -38,7 +38,7 @@ import rookies.ecommerce.validation.ValidUUID;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-  CustomerService customerService;
+  UserService customerService;
 
   @Operation(
       summary = "Create a new Customer",

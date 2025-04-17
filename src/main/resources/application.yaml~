@@ -37,9 +37,3 @@ cloudinary:
   cloud-name: ${CLOUDINARY_CLOUD_NAME}
   api-key: ${CLOUDINARY_API_KEY}
   api-secret: ${CLOUDINARY_API_SECRET}
-
-app:
-  jwt:
-    secret: ${JWT_SECRET:5gZHYsLGeUB7TvtT9AbxlgaNXyUaykNzDgdK00yX5SPDXrNeCGBYNrngUym3ykRn}
-    access-token-expiration-ms: ${JWT_ACCESS_EXPIRATION:3600000}
-    refresh-token-expiration-ms: ${JWT_REFRESH_EXPIRATION:2592000000}

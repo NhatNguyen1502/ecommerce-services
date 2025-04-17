@@ -53,4 +53,6 @@ public interface IUserService {
   CustomerDetailResponse getCustomerDetails(UUID id);
 
   Page<CustomerSumaryResponse> getCustomers(int page, int size);
+
+  User getActiveUserByEmail(String email);
 }
