@@ -40,9 +40,7 @@ public enum ErrorCode {
   UNAUTHORIZED(1030, "Unauthorized"),
   EMAIL_NOT_FOUND(1031, "Email not found"),
   INCORRECT_PASSWORD(1032, "Incorrect password"),
-  REFRESH_TOKEN_REQUIRED(1033, "Refresh token is required"),
-  UNACTIVATED_USER(1034, "User is not activated"),
-  EMAIL_ALREADY_EXISTS(1035, "Email already exists");
+  REFRESH_TOKEN_REQUIRED(1033, "Refresh token is required"),;
 
   int code;
   String message;

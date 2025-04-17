@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rookies.ecommerce.dto.request.user.CreateCustomerRequest;
 import rookies.ecommerce.dto.request.user.UpdateCustomerRequest;
@@ -15,18 +16,22 @@ import rookies.ecommerce.dto.response.user.CustomerDetailResponse;
 import rookies.ecommerce.dto.response.user.CustomerSumaryResponse;
 import rookies.ecommerce.entity.Role;
 import rookies.ecommerce.entity.user.Customer;
+import rookies.ecommerce.entity.user.User;
 import rookies.ecommerce.exception.AppException;
 import rookies.ecommerce.exception.ErrorCode;
 import rookies.ecommerce.repository.CustomerRepository;
 import rookies.ecommerce.repository.RoleRepository;
+import rookies.ecommerce.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CustomerService implements IUserService {
+public class UserService implements IUserService {
 
   CustomerRepository customerRepository;
+  UserRepository userRepository;
   RoleRepository roleRepository;
+  PasswordEncoder passwordEncoder;
 
   /**
    * Create a new customer from the given request.
@@ -35,6 +40,14 @@ public class CustomerService implements IUserService {
    */
   @Override
   public void createUser(CreateCustomerRequest request) {
+    var existingUser = userRepository.findByEmail(request.getEmail());
+
+    if (existingUser.isPresent()) {
+      if (!existingUser.get().isActive()) {
+        throw new AppException(ErrorCode.UNACTIVATED_USER, HttpStatus.BAD_REQUEST);
+      } else throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS, HttpStatus.BAD_REQUEST);
+    }
+
     Customer customer = new Customer();
     Role userRole =
         roleRepository
@@ -42,7 +55,7 @@ public class CustomerService implements IUserService {
             .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND, HttpStatus.NOT_FOUND));
 
     customer.setEmail(request.getEmail());
-    customer.setPassword(request.getPassword());
+    customer.setPassword(passwordEncoder.encode(request.getPassword()));
     customer.setFirstName(request.getFirstName());
     customer.setLastName(request.getLastName());
     customer.setPhoneNumber(request.getPhoneNumber());
@@ -129,4 +142,10 @@ public class CustomerService implements IUserService {
     return customerRepository.findAllByIsDeletedFalse(
         PageRequest.of(page, size, Sort.by("createdAt").descending()));
   }
+
+  @Override
+  public User getActiveUserByEmail(String email) {
+    return userRepository.findByEmailAndIsDeletedFalseAndIsActiveTrue(email).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND, HttpStatus.NOT_FOUND));
+  }
+
 }
