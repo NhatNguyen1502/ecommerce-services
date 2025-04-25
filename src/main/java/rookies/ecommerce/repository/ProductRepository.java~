@@ -1,0 +1,44 @@
+package rookies.ecommerce.repository;
+
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import rookies.ecommerce.dto.projection.product.IProductWithCategoryNameProjection;
+import rookies.ecommerce.entity.Product;
+
+public interface ProductRepository extends JpaRepository<Product, UUID> {
+  @Query("SELECT p.id AS id, p.category AS category, p.name AS name, p.description AS description, " +
+          "p.imageUrl AS imageUrl, p.price AS price, p.quantity AS quantity, p.isFeatured AS isFeatured, " +
+          "p.createdAt AS createdAt, p.updatedAt AS updatedAt, " +
+          "COALESCE(AVG(r.rating), 0) AS averageRating, " +
+          "COUNT(r.id) AS ratingCount " +
+          "FROM Product p LEFT JOIN p.reviews r " +
+          "WHERE p.isDeleted = false " +
+          "GROUP BY p.id, p.category, p.name, p.description, p.imageUrl, p.price, p.quantity, p.isFeatured, p.createdAt, p.updatedAt")
+  Page<IProductWithCategoryNameProjection> findAllByIsDeletedFalse(Pageable pageable);
+
+  Optional<Product> findByIdAndIsDeletedFalse(UUID id);
+
+  @Query("SELECT p.id AS id, p.category AS category, p.name AS name, p.description AS description, " +
+          "p.imageUrl AS imageUrl, p.price AS price, p.quantity AS quantity, p.isFeatured AS isFeatured, " +
+          "p.createdAt AS createdAt, p.updatedAt AS updatedAt, " +
+          "COALESCE(AVG(r.rating), 0) AS averageRating, " +
+          "COUNT(r.id) AS ratingCount " +
+          "FROM Product p LEFT JOIN p.reviews r " +
+          "WHERE p.isDeleted = false AND p.isFeatured = true " +
+          "GROUP BY p.id, p.category, p.name, p.description, p.imageUrl, p.price, p.quantity, p.isFeatured, p.createdAt, p.updatedAt")
+  Page<IProductWithCategoryNameProjection> findAllByIsDeletedFalseAndIsFeaturedTrue(Pageable pageable);
+
+  @Query("SELECT p.id AS id, p.category AS category, p.name AS name, p.description AS description, " +
+          "p.imageUrl AS imageUrl, p.price AS price, p.quantity AS quantity, p.isFeatured AS isFeatured, " +
+          "p.createdAt AS createdAt, p.updatedAt AS updatedAt, " +
+          "COALESCE(AVG(r.rating), 0) AS averageRating, " +
+          "COUNT(r.id) AS ratingCount " +
+          "FROM Product p LEFT JOIN p.reviews r " +
+          "WHERE p.isDeleted = false AND p.category.id = :categoryId " +
+          "GROUP BY p.id, p.category, p.name, p.description, p.imageUrl, p.price, p.quantity, p.isFeatured, p.createdAt, p.updatedAt")
+  Page<IProductWithCategoryNameProjection> findAllByIsDeletedFalseAndCategoryId(@Param("categoryId") UUID categoryId, Pageable pageable);
+}

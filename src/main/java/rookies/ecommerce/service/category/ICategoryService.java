@@ -1,7 +1,7 @@
 package rookies.ecommerce.service.category;
 
+import java.util.List;
 import java.util.UUID;
-import org.springframework.data.domain.Page;
 import rookies.ecommerce.dto.request.category.CreateCategoryRequest;
 import rookies.ecommerce.dto.request.category.UpdateCategoryRequest;
 import rookies.ecommerce.dto.response.category.CategorySummaryResponse;
@@ -28,7 +28,7 @@ public interface ICategoryService {
 
   Category getCategoryById(UUID id);
 
-  Page<CategorySummaryResponse> getActiveCategories(Integer page, Integer size);
+  List<CategorySummaryResponse> getActiveCategories();
 
   /**
    * Updates an existing category with the provided details.

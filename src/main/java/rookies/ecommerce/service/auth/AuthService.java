@@ -61,8 +61,8 @@ public class AuthService {
 
     Map<String, Object> response = new HashMap<>();
     Map<String, Object> userInfo = new HashMap<>();
-    userInfo.put("id", user.getId());
     userInfo.put("email", user.getEmail());
+    userInfo.put("role", role);
     response.put("user", userInfo);
     response.put(ACCESS_TOKEN, accessToken);
     response.put(REFRESH_TOKEN, refreshToken);

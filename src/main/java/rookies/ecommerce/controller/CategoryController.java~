@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -226,12 +225,12 @@ public class CategoryController {
                                                             """)))
       })
   @GetMapping
-  public ResponseEntity<AppApiResponse<List<CategorySummaryResponse>>> getCategories() {
+  public ResponseEntity<AppApiResponse<Page<CategorySummaryResponse>>> getCategories() {
 
     var categories = categoryService.getActiveCategories();
     return ResponseEntity.status(200)
         .body(
-            AppApiResponse.<List<CategorySummaryResponse>>builder()
+            AppApiResponse.<Page<CategorySummaryResponse>>builder()
                 .code(1000)
                 .status(ApiStatus.SUCCESS)
                 .data(categories)

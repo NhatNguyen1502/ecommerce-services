@@ -57,12 +57,7 @@ public class SecurityConfiguration {
         .authorizeHttpRequests(
             authz ->
                 authz
-                    .requestMatchers(
-                        "/auth/sign-up",
-                        "/auth/sign-in",
-                        "/auth/refresh-token",
-                        "/swagger-ui/**",
-                        "/v3/**")
+                    .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/**", "/api/**")
                     .permitAll()
                     .requestMatchers("/admin/**")
                     .hasRole("ADMIN")
