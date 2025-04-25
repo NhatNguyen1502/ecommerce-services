@@ -40,7 +40,7 @@ public class UserService implements IUserService {
    */
   @Override
   public void createUser(CreateCustomerRequest request) {
-    var existingUser = userRepository.findByEmail(request.getEmail());
+    var existingUser = userRepository.findByEmailAndIsDeletedFalse(request.getEmail());
 
     if (existingUser.isPresent()) {
       if (!existingUser.get().isActive()) {
@@ -94,8 +94,13 @@ public class UserService implements IUserService {
     customer.setLastName(request.getLastName());
     customer.setPhoneNumber(request.getPhoneNumber());
     customer.setAddress(request.getAddress());
-    customer.setActive(request.isActive());
 
+    customerRepository.save(customer);
+  }
+
+  public void updateUserStatus(UUID id, boolean isActive) {
+    Customer customer = getUserById(id);
+    customer.setActive(isActive);
     customerRepository.save(customer);
   }
 

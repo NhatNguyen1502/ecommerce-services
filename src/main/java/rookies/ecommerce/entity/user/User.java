@@ -28,7 +28,7 @@ import rookies.ecommerce.entity.Role;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends BaseEntityAudit {
   @Email
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false)
   String email;
 
   @Column(nullable = false)
@@ -40,7 +40,7 @@ public class User extends BaseEntityAudit {
 
   @Column(name = "is_active", columnDefinition = "boolean default true")
   boolean isActive = true;
-
+  
   String refreshToken;
 
   public Collection<GrantedAuthority> getAuthorities() {
