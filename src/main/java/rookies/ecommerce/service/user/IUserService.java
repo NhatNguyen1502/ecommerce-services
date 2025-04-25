@@ -29,7 +29,7 @@ public interface IUserService {
   /**
    * Updates an existing user with the provided details.
    *
-   * @param id the unique identifier of the user to be updated
+   * @param id      the unique identifier of the user to be updated
    * @param request the request containing the updated user details
    * @throws AppException if the user is not found
    */
@@ -52,7 +52,30 @@ public interface IUserService {
    */
   CustomerDetailResponse getCustomerDetails(UUID id);
 
+  /**
+   * Retrieves a paginated list of active customers sorted by creation time in descending order.
+   *
+   * @param page the page number to retrieve
+   * @param size the number of customers per page
+   * @return a page of customer summary responses
+   */
   Page<CustomerSummaryResponse> getCustomers(int page, int size);
 
+  /**
+   * Retrieve an active user by their email address.
+   *
+   * @param email the email address of the user to retrieve
+   * @return the user with the specified email address
+   * @throws AppException if the user is not found
+   */
   User getActiveUserByEmail(String email);
+
+  /**
+   * Updates the active status of an existing user.
+   *
+   * @param id the UUID of the user whose status is to be updated
+   * @param isActive the new active status to set for the user
+   * @throws AppException if the user with the given ID does not exist
+   */
+  void updateUserStatus(UUID id, boolean isActive);
 }

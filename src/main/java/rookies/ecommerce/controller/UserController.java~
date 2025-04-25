@@ -325,42 +325,6 @@ public class UserController {
             .build());
   }
 
-    @Operation(summary = "Update Customer status", description = "Update customer status by ID.")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Update Customer status successfully",
-                            content =
-                            @Content(
-                                    mediaType = "application/json",
-                                    examples =
-                                    @ExampleObject(
-                                            value =
-                                                    """
-                                        {
-                                          "code": 1000,
-                                          "status": "success",
-                                          "message": "Update Customer status successfully"
-                                        }
-                                    """))),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Invalid UUID",
-                            content =
-                            @Content(
-                                    mediaType = "application/json",
-                                    examples =
-                                    @ExampleObject(
-                                            value =
-                                                    """
-                                        {
-                                          "code": 1005,
-                                          "status": "fail",
-                                          "message": "ID should be UUID"
-                                        }
-                                    """)))
-            })
   @PatchMapping("/{id}/status")
   public ResponseEntity<AppApiResponse<Void>> updateCustomerStatus(@PathVariable String id,@RequestBody UpdateCustomerStatusRequest request) {
     customerService.updateUserStatus(UUID.fromString(id), request.isActive());
