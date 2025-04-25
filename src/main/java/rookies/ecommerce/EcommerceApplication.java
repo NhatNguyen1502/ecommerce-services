@@ -12,6 +12,6 @@ public class EcommerceApplication {
 
     SpringApplication.run(EcommerceApplication.class, args);
 
-    log.info("See Swagger UI at http://localhost:8080/swagger-ui.html");
+    log.info("See Swagger UI at http://localhost:8080/swagger-ui/index.html");
   }
 }

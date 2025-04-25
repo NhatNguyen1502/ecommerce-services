@@ -26,11 +26,8 @@ public interface IProductWithCategoryNameProjection {
 
   Double getAverageRating();
 
-  Long getRatingCount();
-
   interface Category {
     UUID getId();
-
     String getName();
   }
 }

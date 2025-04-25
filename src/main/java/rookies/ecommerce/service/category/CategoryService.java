@@ -1,14 +1,11 @@
 package rookies.ecommerce.service.category;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import rookies.ecommerce.dto.request.category.CreateCategoryRequest;
@@ -66,16 +63,13 @@ public class CategoryService implements ICategoryService {
   }
 
   /**
-   * Retrieves a page of active categories sorted by creation time in descending order.
+   * Retrieves active categories sorted by creation time in descending order.
    *
-   * @param page the page number
-   * @param size the page size
    * @return a page of active categories
    */
   @Override
-  public Page<CategorySummaryResponse> getActiveCategories(Integer page, Integer size) {
-    Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-    return categoryRepository.findAllByIsDeletedFalse(pageable);
+  public List<CategorySummaryResponse> getActiveCategories() {
+    return categoryRepository.findAllByIsDeletedFalseOrderByCreatedAtDesc();
   }
 
   /**

@@ -24,7 +24,7 @@ server:
   port: 8080
 
 fe-server:
-  url: ${FE_URL:http://localhost:3000}
+  url: ${FE_URL:http://localhost:5173}
 
 openapi:
   service:

@@ -1,9 +1,8 @@
 package rookies.ecommerce.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import rookies.ecommerce.dto.response.category.CategorySummaryResponse;
 import rookies.ecommerce.entity.Category;
@@ -13,5 +12,5 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
   boolean existsByNameAndIsDeletedFalse(String name);
 
-  Page<CategorySummaryResponse> findAllByIsDeletedFalse(Pageable pageable);
+  List<CategorySummaryResponse> findAllByIsDeletedFalseOrderByCreatedAtDesc();
 }

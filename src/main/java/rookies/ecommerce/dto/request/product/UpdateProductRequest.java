@@ -1,5 +1,6 @@
 package rookies.ecommerce.dto.request.product;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
@@ -12,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdateProductRequest {
-  private UUID categoryId;
+  UUID categoryId;
 
   @Size(max = 200, message = "INVALID_PRODUCT_NAME")
   String name;
@@ -25,5 +26,6 @@ public class UpdateProductRequest {
   @Min(value = 0, message = "PRODUCT_QUANTITY_GREATER_THAN_ZERO")
   int quantity;
 
+  @JsonProperty("isFeatured")
   boolean isFeatured;
 }
