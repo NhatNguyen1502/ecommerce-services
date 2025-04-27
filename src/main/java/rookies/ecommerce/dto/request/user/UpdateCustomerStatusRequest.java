@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateCustomerStatusRequest {
-    @JsonProperty("isActive")
-    boolean isActive;
+  @JsonProperty("isActive")
+  boolean isActive;
 }

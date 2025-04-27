@@ -29,7 +29,7 @@ public interface IUserService {
   /**
    * Updates an existing user with the provided details.
    *
-   * @param id      the unique identifier of the user to be updated
+   * @param id the unique identifier of the user to be updated
    * @param request the request containing the updated user details
    * @throws AppException if the user is not found
    */
