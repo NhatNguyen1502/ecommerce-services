@@ -40,7 +40,7 @@ public class User extends BaseEntityAudit {
 
   @Column(name = "is_active", columnDefinition = "boolean default true")
   boolean isActive = true;
-  
+
   String refreshToken;
 
   public Collection<GrantedAuthority> getAuthorities() {
