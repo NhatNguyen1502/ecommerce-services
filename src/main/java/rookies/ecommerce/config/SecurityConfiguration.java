@@ -61,6 +61,8 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/admin/**")
                     .hasRole("ADMIN")
+                    .requestMatchers("/customer/**")
+                    .hasRole("CUSTOMER")
                     .anyRequest()
                     .authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

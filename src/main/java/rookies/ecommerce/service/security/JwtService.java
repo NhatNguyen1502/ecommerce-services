@@ -31,6 +31,8 @@ public class JwtService implements IJwtService {
 
   SecretKey secretKey;
 
+  String USER_ID = "userId";
+
   static Set<String> invalidatedTokens = ConcurrentHashMap.newKeySet();
 
   @Value("${app.jwt.access-token-expiration-ms}")
@@ -52,9 +54,10 @@ public class JwtService implements IJwtService {
     Map<String, Object> claims = new HashMap<>();
     claims.put("type", isRefreshToken ? "refresh" : "access");
 
+    claims.put(USER_ID, userId);
+
     if (!isRefreshToken) {
       claims.put("role", role);
-      claims.put("userId", userId);
     }
 
     long expirationTime = isRefreshToken ? refreshTokenValidity : accessTokenValidity;
@@ -99,7 +102,7 @@ public class JwtService implements IJwtService {
   @Override
   public UUID extractUserIdFromHeader(HttpServletRequest request) {
     String token = extractTokenFromHeader(request);
-    return UUID.fromString(extractAllClaims(token).get("userId", String.class));
+    return UUID.fromString(extractAllClaims(token).get(USER_ID, String.class));
   }
 
   @Override
@@ -114,7 +117,7 @@ public class JwtService implements IJwtService {
   }
 
   public UUID extractUserIdFromToken(String token) {
-    return UUID.fromString(extractAllClaims(token).get("userId", String.class));
+    return UUID.fromString(extractAllClaims(token).get(USER_ID, String.class));
   }
 
   public String extractEmailFromToken(String token) {

@@ -28,8 +28,8 @@ public class AuthService {
   PasswordEncoder passwordEncoder;
   JwtService jwtService;
 
-  static final String ACCESS_TOKEN = "access_token";
-  static final String REFRESH_TOKEN = "refresh_token";
+  static final String ACCESS_TOKEN = "accessToken";
+  static final String REFRESH_TOKEN = "refreshToken";
 
   public SignInResponse authenticateUser(SignInRequest request) {
     var authResult = validateUserCredentials(request);
