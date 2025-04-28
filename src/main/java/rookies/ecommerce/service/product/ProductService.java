@@ -74,11 +74,12 @@ public class ProductService implements IProductService {
     Category category = product.getCategory();
     return ProductDetailResponse.builder()
         .id(product.getId())
-            .category(ProductDetailResponse.Category.builder()
-                    .id(category.getId())
-                    .name(category.getName())
-                    .build())
-            .name(product.getName())
+        .category(
+            ProductDetailResponse.Category.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build())
+        .name(product.getName())
         .price(product.getPrice())
         .quantity(product.getQuantity())
         .description(product.getDescription())
