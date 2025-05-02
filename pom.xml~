@@ -242,7 +242,7 @@
 						<exclude>**/config/**</exclude>
 						<exclude>**/validation/**</exclude>
 						<exclude>**/exception/**</exclude>
-						<exclude>**/*Application.class</exclude>
+						<exclude>rookies/ecommerce/EcommerceApplication*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
