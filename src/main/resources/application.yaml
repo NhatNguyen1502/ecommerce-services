@@ -6,6 +6,12 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/nashtech_ecommerce}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PW:postgresql}
+    test:
+      url: jdbc:h2:mem/unit_test_db
+      diver-class-name: org.h2.Driver
+      username: sa
+      password: password
+      hibernate.ddl-auto: create-drop
   jpa:
     hibernate:
       ddl-auto: update
