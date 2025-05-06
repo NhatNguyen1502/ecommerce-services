@@ -1,0 +1,4 @@
+package rookies.ecommerce.entity;
+
+public class OrderItem {
+}

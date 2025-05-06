@@ -1,0 +1,61 @@
+package rookies.ecommerce.entity;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+import rookies.ecommerce.entity.user.Customer;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Order extends BaseEntityAudit {
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    Customer customer;
+
+    @NotNull
+    @Column(name = "total_amount", nullable = false)
+    double totalAmount;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderItem> orderItems = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Order order = (Order) o;
+        return Double.compare(order.totalAmount, totalAmount) == 0 &&
+                Objects.equals(customer, order.customer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), customer, totalAmount);
+    }
+}

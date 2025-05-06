@@ -197,4 +197,13 @@ public class ProductService implements IProductService {
     return productRepository.findAllByIsDeletedFalseAndCategoryId(
         categoryId, PageRequest.of(page, size));
   }
+
+  public void updateProductQuantity(UUID id, int quantity) {
+    Product product =
+        productRepository
+            .findByIdAndIsDeletedFalse(id)
+            .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND, HttpStatus.NOT_FOUND));
+    product.setQuantity(quantity);
+    productRepository.save(product);
+  }
 }
