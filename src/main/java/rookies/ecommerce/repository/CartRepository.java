@@ -1,0 +1,28 @@
+package rookies.ecommerce.repository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import rookies.ecommerce.dto.response.cart.CartItemResponse;
+import rookies.ecommerce.entity.CartItem;
+
+@Repository
+public interface CartRepository extends JpaRepository<CartItem, UUID> {
+  Optional<CartItem> findByCustomerIdAndProductId(UUID customerId, UUID productId);
+
+  List<CartItem> findByCustomerId(UUID customerId);
+
+  void deleteByCustomerId(UUID customerId);
+
+  long countByCustomerId(UUID customerId);
+
+  @Query(
+      "SELECT new rookies.ecommerce.dto.response.cart.CartItemResponse("
+          + "p.id, p.name, ci.quantity, p.price, p.imageUrl) "
+          + "FROM CartItem ci JOIN ci.product p "
+          + "WHERE ci.customer.id = :customerId")
+  List<CartItemResponse> findCartItemsByCustomerId(UUID customerId);
+}

@@ -51,7 +51,6 @@ public enum ErrorCode {
   INSUFFICIENT_STOCK(1041, "Insufficient stock"),
   EMPTY_CART(1042, "Your cart is empty"),
   CART_ITEM_NOT_FOUND(1043, "Cart item not found"),
-  QUANTITY_GREATER_THAN_OR_EQUAL_ZERO(1044, "Quantity must be greater than or equal to zero"),
   ;
 
   int code;
